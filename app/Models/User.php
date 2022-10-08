@@ -50,12 +50,25 @@ class User extends Authenticatable
     public static function updateUserPlan($plates, $id)
     {
         $plans = array();
-        $User = User::find($id);
+        $user = User::find($id);
         foreach ($plates as $date => $row) {
             if ($row != null) {
                 $plans[$date] = $row;
             }
         }
-        $User->update(['plan' => $plans]);
+        $user->update(['plan' => $plans]);
+    }
+    public static function getPlansCount($id)
+    {
+        $user = User::find($id);
+        return count($user->plan);
+    }
+    public static function getPlans($plates, $id)
+    {
+        dd($plates);
+        $plates = array();
+        foreach ($plates as $date => $row) {
+            $plate = Plate::find($row)->toArray();
+        }
     }
 }

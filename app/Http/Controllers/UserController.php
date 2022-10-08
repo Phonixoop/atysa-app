@@ -102,7 +102,7 @@ class UserController extends Controller
 
 
         $mainMonth = \Morilog\Jalali\Jalalian::fromCarbon(Carbon::now()->addWeek(1))->format('M');
-        $month = \Morilog\Jalali\Jalalian::fromCarbon(Carbon::now()->addWeek(1))->format('m');
+        $month = \Morilog\Jalali\Jalalian::fromCarbon(Carbon::now()->addwee(1))->format('m');
         $Year = \Morilog\Jalali\Jalalian::fromCarbon(Carbon::now()->addWeek(1))->format('Y');
         $day = \Morilog\Jalali\Jalalian::fromCarbon(Carbon::now()->addWeek(1))->format('d');
         $dayOfWeek = (new Jalalian(intval($Year), intval($month), intval($day)))->getMonthDays();
@@ -228,25 +228,30 @@ class UserController extends Controller
         $company = Company::find($companyId);
         $plateFee = $company->plateFee ? $company->plateFee : 0;
 
-        $seletedPlatesCount = count(array_filter($request->plate));
-        $totalFee = $seletedPlatesCount * $plateFee * 1.09;
-        if ($plateFee > 0) // if have to pay first
+        $plans = array();
+
+        foreach ($request->plate as $date => $row) {
+            if ($row != null) {
+                $plan = new PlanClass();
+                $plan->plateDate = $date;
+                $plan->plate = $row;
+                array_push($plans, $plan);
+            }
+        }
+
+
+
+        $boughtCount =  User::getPlansCount(Auth::id());
+        $plansRequestCount = count($plans);
+        $amount = max($plansRequestCount, $boughtCount) - $boughtCount;
+
+        $totalFee = $amount * $plateFee;
+
+        if ($totalFee > 0) // if have to pay first
         {
 
+
             #region create history
-
-
-            $plans = array();
-
-            foreach ($request->plate as $date => $row) {
-                if ($row != null) {
-                    $plan = new PlanClass();
-                    $plan->plateDate = $date;
-                    $plan->plate = $row;
-                    array_push($plans, $plan);
-                }
-            }
-
             $purchase = new Purchase();
             $purchase->hasPayed = false;
             $purchase->totalFee = $totalFee;
@@ -276,7 +281,7 @@ class UserController extends Controller
                         break;
                     } else {
                         $history->purchases = array($purchase);
-                        array_push($basket["histories"],  $history);
+                        array_push($basket["histories"], $history);
 
                         break;
                     }
@@ -298,9 +303,9 @@ class UserController extends Controller
             //  dd(json_encode($userBasket, JSON_PRETTY_PRINT));
 
             $response = zarinpal()
-                ->amount($totalFee) // مبلغ تراکنش
+                ->amount($totalFee * 1.09) // مبلغ تراکنش
                 ->request()
-                ->description(' خرید ' . $seletedPlatesCount . ' تعداد غذا') // توضیحات تراکنش
+                ->description(' خرید ' . $plansRequestCount . ' تعداد غذا') // توضیحات تراکنش
                 ->callbackUrl('http://localhost:8000/pay?basketId=' . $userBasket->id . "&historyDate=" . $history->date) // آدرس برگشت پس از پرداخت
                 ->mobile(Auth::user()->mobile) // شماره موبایل مشتری - اختیاری
                 ->email('sales@atysa.ir') // ایمیل مشتری - اختیاری
