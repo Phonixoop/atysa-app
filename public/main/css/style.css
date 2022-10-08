@@ -1,0 +1,286 @@
+@font-face {
+    font-family: 'shabnam';
+    src: url('fonts/Farsi-Digits/Shabnam-FD.eot');
+    src: url('fonts/Farsi-Digits/Shabnam-FD.eot?#iefix') format('embedded-opentype'),
+    url('fonts/Farsi-Digits/Shabnam-FD.woff2') format('woff2'),
+    url('fonts/Farsi-Digits/Shabnam-FD.woff') format('woff'),
+    url('fonts/Farsi-Digits/Shabnam-FD.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'shabnam';
+    font-weight: bold;
+    src: url('fonts/Farsi-Digits/Shabnam-Bold-FD.eot');
+    src: url('fonts/Farsi-Digits/Shabnam-Bold-FD.eot?#iefix') format('embedded-opentype'),
+    url('fonts/Farsi-Digits/Shabnam-Bold-FD.woff2') format('woff2'),
+    url('fonts/Farsi-Digits/Shabnam-Bold-FD.woff') format('woff'),
+    url('fonts/Farsi-Digits/Shabnam-Bold-FD.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'shabnam';
+    font-weight: 400;
+    src: url('fonts/Farsi-Digits/Shabnam-Light-FD.eot');
+    src: url('fonts/Farsi-Digits/Shabnam-Light-FD.eot?#iefix') format('embedded-opentype'),
+    url('fonts/Farsi-Digits/Shabnam-Light-FD.woff2') format('woff2'),
+    url('fonts/Farsi-Digits/Shabnam-Light-FD.woff') format('woff'),
+    url('fonts/Farsi-Digits/Shabnam-Light-FD.ttf') format('truetype');
+  }
+body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6,p,
+.page-wrapper .page-body-wrapper .page-title .breadcrumb li,
+.page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper .sidebar-main .sidebar-links li a span {
+    font-family: 'shabnam', tahoma!important;
+}
+
+body{
+    direction: rtl;
+    margin-bottom: 30px;
+}
+
+  .site-logo img {
+    width: auto;
+    height: 60px;
+    border-radius: 3px;
+}
+.page-wrapper .sidebar-main-title p{
+    line-height: 2;
+}
+.avatar{
+    font-size: 2em;
+}
+
+.avatar i {
+    color: gray;
+}
+
+.header-box{
+    border-bottom: 1px solid #D8DBDE;
+}
+
+.side-bar{
+    background: #F3F7FD;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    
+}
+
+.side-bar ul li{
+    list-style-type: none;
+    text-align: center;
+    /* background: #fff; */
+    border-radius: 10px;
+    margin: 30px 0px;
+    /* padding: 10px 50px; */
+    width: 100%;
+    display: block;
+}
+
+.side-bar ul{
+    padding: 0;
+    text-align: -webkit-center;
+}
+
+.side-bar ul li a{
+    display: block;
+    padding: 0.5rem;
+    color: black;
+}
+
+.side-bar ul li a:hover,
+.side-bar ul li a:focus{
+    list-style-type: none;
+    text-align: center;
+    background: #fff;
+    border-radius: 10px;
+    /* margin: 20px 0px; */
+   /* width: 100%; */
+   /* padding-top: 5px; */
+   /* padding-top: 0.5rem;
+   padding-bottom: 0.5rem; */
+   padding:0.5rem;
+
+   text-decoration: none;
+    color:   #CE5862;
+    display: block;
+}
+
+.side-bar ul li span{
+    /* float: right; */
+}
+
+
+
+.side-bar ul li i{
+    float: right;
+}
+
+.weekly-menu-title{
+    font-size: 2em;
+}
+
+.week-meal-table th{
+    font-size: 1.2em;
+}
+
+.week-meal-table td{
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.week-meal-table{
+    border: 1px solid #D8DBDE;
+}
+
+.table-row-high-range{
+    background-color: #FFEBEC;
+}
+
+.table-row-middle-range{
+    background-color: #FFFAE9;
+}
+
+.table-row-low-range{
+    background-color: #F1F6F6;
+}
+
+.card-header {
+	border-bottom: none;
+	padding: 1.75rem 1.25rem;
+    background-color: #F1F5FC;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 18px;
+	color: #333333;
+	text-transform: uppercase;
+}
+
+
+.card-body {
+	color: #333333;
+}
+.card-title {
+	
+	font-style: normal;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 19px;
+}
+.card-text {
+	
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 22px;
+	display: flex;
+	align-items: center;
+	letter-spacing: 0.1px;
+	color: silver;
+	padding-top: 5px;
+}
+
+
+.summary-ingre{
+    width: 32px;
+}
+
+.category-level1-pictures img{
+    margin-left: 5px;
+    margin-top: 10px;
+}
+.category-level1-pictures{
+    text-align: right;
+}
+
+.category-level2-pictures img{
+    margin-left: 5px;
+    margin-top: 10px;
+}
+.category-level2-pictures{
+    text-align: right;
+}
+
+/* HIDE RADIO */
+.category-level1-pictures input[type=radio],
+.category-level2-pictures input[type=radio] { 
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* IMAGE STYLES */
+  .category-level1-pictures input[type=radio] + img,
+  .category-level2-pictures input[type=radio] + img
+   {
+    cursor: pointer;
+  }
+  
+  /* CHECKED STYLES */
+  .category-level1-pictures input[type=radio]:checked + img,
+  .category-level2-pictures input[type=radio]:checked + img {
+    border: 2px solid #f00;
+    border-radius: .25rem!important;
+  }
+
+  .category-level1-pictures form,
+  .category-level2-pictures form{
+      display: contents;
+  }
+  .active-material{
+      color: #f00;
+  }
+  html[dir="rtl"] .select2-container--default .select2-selection--multiple .select2-selection__choice {
+    margin-top: 6px!important;
+}
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+.myicon{
+    margin-top:1px;
+    float: right;
+    margin-left: 15px;
+    display: block;
+    text-indent: -9999px;
+    width: 20px;
+    height: 20px;
+    background-size: 20px 20px!important;
+}
+.myicon.myfoods{
+    background: url('icon_pack/food-tray.svg');
+}
+.myicon.calendar{
+    background: url('icon_pack/calendar.svg');
+}
+.myicon.myplates{
+    background: url('icon_pack/tray.svg');
+}
+.myicon.createplate{
+    background: url('icon_pack/plate.svg');
+}
+.myicon.calory{
+    background: url('icon_pack/calorie.svg');
+}
+@media only screen and (max-width: 575.98px){
+    html[dir="rtl"] .page-wrapper.compact-wrapper .nav-right .nav-menus {
+        margin-left: 5px!important;
+    }   
+    html[dir="rtl"] .page-header .header-wrapper .nav-right {
+        text-align: left;
+        float: left;
+        width: 89%;
+    }
+    .profile-nav {
+        display: block !important;
+    }
+    .footer{
+        margin-left: 0px;
+    }
+    .card-block.px-5{
+        padding-left: 5px!important;
+        padding-right: 5px!important;
+    }
+    select{
+        width: 150px!important;
+    }
+}

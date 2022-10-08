@@ -1,0 +1,66 @@
+{
+    "_id": {
+        "$oid": "633f0bd9435d2aaeb801fac7"
+    },
+    "userId": "633ed4fc984202dd12039e15",
+    "history": [
+        {
+            "date": "1401-مهر",
+            "purchases": [
+                {
+                    "hasPayed": false,
+                    "totalFee": 50235,
+                    "purchaseDate": "2015-0-12:14:45:30",
+                    "plans": [
+                        {
+                            "plateDate": "2022-1-10",
+                            "plate": "sdas46s4dasd4d"
+                        },
+                        {
+                            "plateDate": "2022-2-10",
+                            "plate": "6da4s5dasd5asda"
+                        }
+                    ]
+                },
+                {
+                    "hasPayed": false,
+                    "totalFee": 50235,
+                    "purchaseDate": "2015-0-12:14:45:30",
+                    "plans": [
+                        {
+                            "plateDate": "2022-1-10",
+                            "plate": "sdas46s4dasd4d"
+                        },
+                        {
+                            "plateDate": "2022-2-10",
+                            "plate": "6da4s5dasd5asda"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "date": "1401-ابان",
+            "purchase": {
+                "hasPayed": false,
+                "totalFee": 50235,
+                "plan": [
+                    {
+                        "plateDate": "2022-1-10",
+                        "plate": "sdas46s4dasd4d"
+                    },
+                    {
+                        "plateDate": "2022-2-10",
+                        "plate": "6da4s5dasd5asda"
+                    }
+                ]
+            }
+        }
+    ],
+    "updated_at": {
+        "$date": "2022-10-06T17:09:45.993Z"
+    },
+    "created_at": {
+        "$date": "2022-10-06T17:09:45.993Z"
+    }
+}
