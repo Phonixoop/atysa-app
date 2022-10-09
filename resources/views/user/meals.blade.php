@@ -149,8 +149,9 @@
                   
                   <td style="font-weight: bold" scope="row">{{\Morilog\Jalali\CalendarUtils::strftime('%A', strtotime($row))}}</td>
                   <td>
+              
                     <div class="form-group">
-                   
+                 {{-- @if(\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::now())->format("d") <= $row->format('d')) --}}
                       <select name="plate[{{$row->format('Y-m-d')}}]" class="form-control">
                         <option value="">---انتخاب نمایید---</option>
                         
@@ -178,6 +179,7 @@
                             @endforeach
                           @endif
                       </select>
+            
                     </div>
                   </td>
                   <td class="mealCalory">

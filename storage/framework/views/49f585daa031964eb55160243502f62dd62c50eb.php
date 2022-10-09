@@ -59,7 +59,7 @@
     border:none;
     width: 250px;
     padding: 10px 0px;
-    border-radius: 5px;
+    border-radius: 10px;
     margin-top: 10px;
     background-color: #6e7677;
     color: white;
@@ -181,10 +181,11 @@
               <img class="img" src="/main/images/wallet.png" width="300px" height="300px" />
             </div>
           
-            <form class="column box" submit="submit()">
+            <form class="column box" method="POST" action="/user/wallet/charge">
+              <?php echo csrf_field(); ?>
               <div class="current_budget">
                 <h6>موجودی فعلی</h6>
-                <?php   $budget = preg_replace("/\B(?=(\d{3})+(?!\d))/",",",$budget); ?> 
+                <?php $budget = preg_replace("/\B(?=(\d{3})+(?!\d))/",",",$budget); ?> 
                 <span><?php echo e($budget); ?> تومان</span> 
               </div>
               <div class="seperator"></div>
@@ -201,11 +202,12 @@
               </div>
               <div class="input_holder">
                 <span data-btn-add class="btn_addsub enabled" onclick="addPrice('10000')" >+</span>
-                <input data-input class="input" placeholder="مبلغ دلخواه" value="" type="text" change="" required>
+                <input data-input autocomplete="off" class="input" placeholder="مبلغ دلخواه" value="" type="text" name="amount" id="amount" required>
                 <span data-btn-sub class="btn_addsub" onclick="subPrice('10000')">-</span>
               </div>
               <button data-btn-submit disabled class="submit">شارژ کیف پول</button>
               <p class="result"></p>
+              <p class="">به مبلغ پرداختی 9 درصد مالبات بر ارزش افزوده اضافه می گردد</p>
             </form>
           </div>
       </div>

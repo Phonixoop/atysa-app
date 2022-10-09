@@ -7,8 +7,8 @@ use Jenssegers\Mongodb\Eloquent\Model;
 class Wallet extends Model
 {
     protected $connection = 'mongodb';
-    protected $collection = 'wallet';
+    protected $collection = 'wallets';
     protected $fillable = [
-        'userId', 'charges', 'budget'
+        'user', 'transactions', 'budget'
     ];
 }

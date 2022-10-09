@@ -174,14 +174,24 @@
                   <li class="sidebar-list">
                     <a class="sidebar-link sidebar-title" href="/user/calory"><i class="myicon calory"></i><span class="lan-3">میزان کالری من</span></a>
                   </li>
-                  
+                  @php
+
+
+                  $companyId = Auth::user()->companyId;
+                  $company = App\Models\Company::find($companyId);
+                  $plateFee = $company->plateFee ? $company->plateFee : 0;
+
+                    $hasWallet = $plateFee <= 0 ? false : true;
+                  @endphp
+                  @if($hasWallet)
                   <li class="sidebar-list">
                     <a class="sidebar-link sidebar-title nav_item" href="/user/wallet" >
                       <i class="myicon wallet"></i>
                       <span class="lan-3">کیف پول</span>
                     </a>
                   </li>
-
+                  @endif
+            
                   @if(Auth::user()->type == 4)
                   <li class="sidebar-list">
                     <a class="sidebar-link sidebar-title" href="/company" >

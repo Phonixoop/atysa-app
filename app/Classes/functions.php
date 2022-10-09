@@ -455,4 +455,23 @@ class functions
             }
         }
     }
+
+    public function payWithZarinpal($totalFee, $mobile, $callback)
+    {
+        $response = zarinpal()
+            ->amount($totalFee * 1.09) // مبلغ تراکنش
+            ->request()
+            ->description('تاریخ سفارش در ' . Carbon::now()) // توضیحات تراکنش
+            ->callbackUrl('http://localhost:8000/' . $callback) // آدرس برگشت پس از پرداخت
+            ->mobile($mobile) // شماره موبایل مشتری - اختیاری
+            ->email('sales@atysa.ir') // ایمیل مشتری - اختیاری
+            ->send();
+
+        return $response;
+    }
+
+    public function parse($value)
+    {
+        return  preg_replace("/[^0-9]/", "", $value);
+    }
 }

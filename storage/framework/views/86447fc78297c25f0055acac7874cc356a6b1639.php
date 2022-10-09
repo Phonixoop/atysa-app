@@ -151,8 +151,9 @@
                   
                   <td style="font-weight: bold" scope="row"><?php echo e(\Morilog\Jalali\CalendarUtils::strftime('%A', strtotime($row))); ?></td>
                   <td>
+              
                     <div class="form-group">
-                   
+                 
                       <select name="plate[<?php echo e($row->format('Y-m-d')); ?>]" class="form-control">
                         <option value="">---انتخاب نمایید---</option>
                         
@@ -181,6 +182,7 @@
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                           <?php endif; ?>
                       </select>
+            
                     </div>
                   </td>
                   <td class="mealCalory">

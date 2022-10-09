@@ -11,6 +11,7 @@ use App\Models\Plate;
 use App\Models\Poll;
 use App\Models\User;
 use App\Models\UserBasket;
+use App\Models\Wallet;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
@@ -72,6 +73,9 @@ class UserController extends Controller
             $weekOfMonth = 5;
         }
         $plan = Plan::where('month', $func->returnFullMonthFromDateType($mainMonth))->first();
+
+
+
         return view('user.dashboard')->with('gregoryDates', $gregoryDates)
             ->with('weekOfMonth', $weekOfMonth)
             ->with('dayOfWeek', $dayOfWeek)
@@ -395,6 +399,24 @@ class UserController extends Controller
         $plate->name = $request->plateName;
         $plate->save();
         return redirect('/user/all-plates');
+    }
+
+    public function wallet()
+    {
+
+        $companyId = Auth::user()->companyId;
+        $company = Company::find($companyId);
+        $plateFee = $company->plateFee ? $company->plateFee : 0;
+
+        if ($plateFee <= 0) {
+            return redirect('/');
+        }
+
+        $wallet = Wallet::where('user', Auth::id())->first();
+
+        $budget = $wallet["budget"];
+
+        return view('user.wallet')->with("budget",  $budget);
     }
 }
 

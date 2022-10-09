@@ -1,0 +1,18 @@
+{
+    "userId": "633ed4fc984202dd12039e15",
+    "budget": "5000000",
+    "transations": [
+        {
+            "hasPayed": false,
+            "amount": "14000",
+            "date": "2014-12-01T00:00:00",
+            "authority": null
+        },
+        {
+            "hasPayed": true,
+            "amount": "500000",
+            "date": "2014-12-01T00:00:00",
+            "authority": "asdasdasdasd"
+        }
+    ]
+}

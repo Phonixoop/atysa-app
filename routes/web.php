@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PayController;
+use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +20,15 @@ use GuzzleHttp\Psr7\Response;
 Route::middleware(['auth', 'web', 'isUser'])->group(function () {
     Route::get('/', 'UserController@dashboard');
 });
+
+
+
+
 Route::get('/posts', 'PostController@all');
 
 Route::get('/pay', [PayController::class, "zarinpalverify"]);
+Route::get('/wallet/walletverify', [WalletController::class, "walletverify"]);
+
 Route::middleware(['web'])->group(function () {
 
     Route::get('/login', 'AuthController@loginPage')->name('newlogin');
@@ -54,11 +61,12 @@ Route::prefix('user')->group(function () {
         Route::get('/calory', 'UserController@editCalory');
         Route::post('/calory', 'UserController@updateEditCalory');
 
-        Route::get('/wallet', function () {
-            return view('user.wallet')->with("budget", "50000")->with("plateFee", "10000");
-        });
+        Route::get('/wallet', "UserController@wallet");
+
+        Route::post('/wallet/charge', "WalletController@charge");
     });
 });
+
 Route::prefix('logistic')->group(function () {
     Route::middleware(['isLogistic', 'web'])->group(function () {
         Route::get('/', 'Logistic\CompanyController@all');

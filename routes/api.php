@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/hotbox/upload','ApiController@updateHotbox');
-Route::get('/foods/today'   , 'ApiController@todayFoods');
+Route::get('/hotbox/upload', 'ApiController@updateHotbox');
+Route::get('/foods/today', 'ApiController@todayFoods');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
