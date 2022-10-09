@@ -98,7 +98,7 @@
                       //break;
                   }
                   $week = $weekOfMonth;
-                ?>
+                ?> 
                 <?php $__currentLoopData = $gregoryDates; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
               
                <?php if($monthNumber != \Morilog\Jalali\Jalalian::fromCarbon($row)->format("m")) continue;  ?>
@@ -214,6 +214,8 @@
     // this code is working like cheeze!! . you do not have the ability to change this code
     const fee = <?php echo e($fee); ?>
 
+
+    let seleectedCount = 0;
     let totalFee = 0;
     $(document).ready(function() {
       $('select').change(function(){
@@ -221,6 +223,7 @@
         var option = $('option:selected', this).attr('data-calory');
         if(option != null){
           totalFee+=fee;
+          seleectedCount++;
           $(this).parent().parent().parent().find('.mealCalory').text(option);
           <?php if(Auth::user()->calory): ?>
             var myCalory = <?php echo e(Auth::user()->calory); ?>
@@ -234,6 +237,7 @@
           <?php endif; ?>
         }else{
           totalFee-=fee;
+          seleectedCount--;
           $(this).parent().parent().parent().find('.mealCalory').text('انتخاب نشده است');
           $(this).parent().parent().parent().find('.mealCalory').css('color','#000');
         }

@@ -98,7 +98,7 @@
                       //break;
                   }
                   $week = $weekOfMonth;
-                @endphp
+                @endphp 
                 @foreach($gregoryDates as $key=>$row)
               
                @php if($monthNumber != \Morilog\Jalali\Jalalian::fromCarbon($row)->format("m")) continue;  @endphp
@@ -209,6 +209,8 @@
     const totalFeeElement =  $('[data-total-fee]');
     // this code is working like cheeze!! . you do not have the ability to change this code
     const fee = {{$fee}}
+
+    let seleectedCount = 0;
     let totalFee = 0;
     $(document).ready(function() {
       $('select').change(function(){
@@ -216,6 +218,7 @@
         var option = $('option:selected', this).attr('data-calory');
         if(option != null){
           totalFee+=fee;
+          seleectedCount++;
           $(this).parent().parent().parent().find('.mealCalory').text(option);
           @if(Auth::user()->calory)
             var myCalory = {{Auth::user()->calory}}
@@ -228,6 +231,7 @@
           @endif
         }else{
           totalFee-=fee;
+          seleectedCount--;
           $(this).parent().parent().parent().find('.mealCalory').text('انتخاب نشده است');
           $(this).parent().parent().parent().find('.mealCalory').css('color','#000');
         }

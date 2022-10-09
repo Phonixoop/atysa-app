@@ -8,8 +8,8 @@
     <link rel="preload" href="/main/fonts/iransans/IRANSansWeb(FaNum)_Medium.ttf" as="font"
     crossorigin="anonymous" />
     <title>Document</title>
-</head>
-<style>
+    <script src="/main/js/lottie-player.js" async></script>
+    <style>
         @font-face {
         font-family: IRANSans;
         font-style: normal;
@@ -60,7 +60,17 @@
         display: flex;
         flex-direction: row;
         width: 100%;
+        gap: 10px;
     }  
+    .row 
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        gap:10px;
+    }
     .left
     {
         display: flex;
@@ -68,7 +78,8 @@
         justify-content: center;
         align-items: center;
         height: 100%;
-        width: 50%;
+        width: 50%;  
+        gap:20px;
     }
     .table
     {
@@ -89,22 +100,41 @@
         width: fit-content;
         padding: 5px 10px;
     }
+    .button
+    {
+        width: fit-content;
+        padding: 1rem 2rem;
+        background: white;
+        border-radius: 100000px;
+        text-decoration: none !important;
+    }
+    .button:hover
+    {
+        background-color: transparent;
+        color: black;
+    }
 </style>
+</head>
+
 
 
 <body>
+    @isset($ok)
+    @if($ok)
+   <div class="row">
     <div class="column">
         <div class="left">
             <img src="/main/images/logo.png"/>
             <div id="animation">
-                @if($ok)
-                <script src="/main/js/lottie-player.js"></script>
+             
+              
                 <lottie-player src="/main/animations/successful.json"  background="transparent"  speed="0.45"  style="width: 300px; height: 300px;" autoplay></lottie-player>
-                @endif
+            
             </div>
-            <h1>
+            <h1 style="color: #34e449">
                 پرداخت با موفقیت انجام شد
             </h1>
+            <a class="button" href="/">بازگشت به سایت</a>
         </div>
         <div class="table">
             @foreach($plates as $plate)
@@ -114,6 +144,24 @@
               </div>
             @endforeach
         </div>
+    </div>
+   </div>
+    @else
+    <div class="row">
+
+    <div class="left">
+        <img src="/main/images/logo.png"/>
+        <div id="animation">   
+          
+            <lottie-player src="/main/animations/failed.json"  background="transparent"  speed="0.45"  style="width: 300px; height: 300px;" autoplay></lottie-player>     
+        </div>
+        <h1 style="color: #e43434">
+          پرداخت شما با موفقط انجام نشد
+        </h1>
+        <a class="button" href="/">بازگشت به سایت</a>
+    </div>
+    @endif
+    @endisset
     </div>
    
 </body>

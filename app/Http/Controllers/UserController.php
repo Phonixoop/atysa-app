@@ -102,7 +102,7 @@ class UserController extends Controller
 
 
         $mainMonth = \Morilog\Jalali\Jalalian::fromCarbon(Carbon::now()->addWeek(1))->format('M');
-        $month = \Morilog\Jalali\Jalalian::fromCarbon(Carbon::now()->addwee(1))->format('m');
+        $month = \Morilog\Jalali\Jalalian::fromCarbon(Carbon::now()->addweek(1))->format('m');
         $Year = \Morilog\Jalali\Jalalian::fromCarbon(Carbon::now()->addWeek(1))->format('Y');
         $day = \Morilog\Jalali\Jalalian::fromCarbon(Carbon::now()->addWeek(1))->format('d');
         $dayOfWeek = (new Jalalian(intval($Year), intval($month), intval($day)))->getMonthDays();
@@ -184,6 +184,7 @@ class UserController extends Controller
         $companyId = Auth::user()->companyId;
         $company = Company::find($companyId);
         $plateFee = $company->plateFee ? $company->plateFee : 0;
+
 
         return view('user.meals')->with('myDishes', $myArray)->with('weekOfMonth', $weekOfMonth)
             ->with('dayOfWeek', $dayOfWeek)->with('plan', $plan)->with('gregoryDates', $gregoryDates)

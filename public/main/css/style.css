@@ -261,6 +261,11 @@ body{
 .myicon.calory{
     background: url('icon_pack/calorie.svg');
 }
+.myicon.wallet{
+    background: url('icon_pack/wallet.svg');
+    width: 20px;
+    height: 20px;
+}
 @media only screen and (max-width: 575.98px){
     html[dir="rtl"] .page-wrapper.compact-wrapper .nav-right .nav-menus {
         margin-left: 5px!important;

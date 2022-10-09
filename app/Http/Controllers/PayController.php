@@ -22,11 +22,8 @@ class PayController extends Controller
         if (strlen($request->Authority) <= 0)
             return redirect('/');
 
-        if ($request->Status == "NOK") {
-            return "نشد که";
-        }
-
-
+        if (!$request->Status)
+            return view('purchase')->with("ok", false);
         $userBasket = UserBasket::find($request->basketId)->where("histories.date", $request->historyDate)->first();
         if (!$userBasket)
             return "سبد شما خالی است";
@@ -60,9 +57,9 @@ class PayController extends Controller
 
 
 
-        // $userBasket->fill($basket);
-        // $userBasket->save();
-        // User::updateUserPlan($plans, $userBasket->userId);
+        $userBasket->fill($basket);
+        $userBasket->save();
+        User::updateUserPlan($plans, $userBasket->userId);
 
         return view('purchase')->with("ok", true)->with("plates", $plates);
     }

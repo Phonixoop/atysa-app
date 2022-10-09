@@ -164,6 +164,11 @@
                   <li class="sidebar-list">
                     <a class="sidebar-link sidebar-title" href="/user/calory"><i class="myicon calory"></i><span class="lan-3">میزان کالری من</span></a>
                   </li>
+
+                  <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title" href="/user/wallet"><i class="myicon wallet"></i><span class="lan-3">کیف پول</span></a>
+                  </li>
+
                   <?php if(Auth::user()->type == 4): ?>
                   <li class="sidebar-list">
                     <a class="sidebar-link sidebar-title" href="/company"><i style="margin-left: 15px;font-size: 20px;" class="fa fa-user"></i><span class="lan-3">بازگشت به پنل مدیریت</span></a>
