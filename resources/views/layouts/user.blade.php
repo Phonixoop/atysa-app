@@ -49,7 +49,14 @@
     <!-- Customs css-->
     <link rel="stylesheet" href="/main/css/style.css" />
     @yield('header')
-    
+    <style>
+
+      .nav_item:hover 
+      {
+        background-color: rgb(199 255 212) !important;
+     
+      }
+    </style>
   </head>
   <body class="rtl">
     <!-- tap on top starts-->
@@ -136,7 +143,7 @@
             <nav class="sidebar-main">
               <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
               <div id="sidebar-menu">
-                <ul class="sidebar-links" id="simple-bar">
+                <ul class="sidebar-links" id="simple-bar" style="gap:20px">
                   <li class="back-btn"><a href="index.html"><img class="img-fluid" src="/main/images/atysa_logo.png" alt=""></a>
                     <div class="mobile-back text-end"><span>بازگشت</span><i class="fa fa-angle-left ps-2" aria-hidden="true"></i></div>
                   </li>
@@ -167,14 +174,20 @@
                   <li class="sidebar-list">
                     <a class="sidebar-link sidebar-title" href="/user/calory"><i class="myicon calory"></i><span class="lan-3">میزان کالری من</span></a>
                   </li>
-
+                  
                   <li class="sidebar-list">
-                    <a class="sidebar-link sidebar-title" href="/user/wallet"><i class="myicon wallet"></i><span class="lan-3">کیف پول</span></a>
+                    <a class="sidebar-link sidebar-title nav_item" href="/user/wallet" >
+                      <i class="myicon wallet"></i>
+                      <span class="lan-3">کیف پول</span>
+                    </a>
                   </li>
 
                   @if(Auth::user()->type == 4)
                   <li class="sidebar-list">
-                    <a class="sidebar-link sidebar-title" href="/company"><i style="margin-left: 15px;font-size: 20px;" class="fa fa-user"></i><span class="lan-3">بازگشت به پنل مدیریت</span></a>
+                    <a class="sidebar-link sidebar-title" href="/company" >
+                      <i style="margin-left: 15px;font-size: 20px; " class="fa fa-user"></i>
+                      <span class="lan-3">بازگشت به پنل مدیریت</span>
+                    </a>
                   </li>
                   @endif
                 </ul>

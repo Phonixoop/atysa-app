@@ -55,7 +55,7 @@ Route::prefix('user')->group(function () {
         Route::post('/calory', 'UserController@updateEditCalory');
 
         Route::get('/wallet', function () {
-            return view('user.wallet');
+            return view('user.wallet')->with("budget", "50000")->with("plateFee", "10000");
         });
     });
 });
