@@ -57,17 +57,7 @@
      
       }
     </style>
-    <script defer>
 
-            <?php 
-            $wallet = App\Models\Wallet::where('user', Auth::id())->first();
-            $budget = $wallet["budget"] or null;
-         
-            ?>
-            localStorage.setItem('budget', <?php echo e($budget); ?>);
-            let budget = <?php echo e($budget); ?>
-
-    </script>
   </head>
   <body class="rtl">
     <!-- tap on top starts-->
@@ -91,17 +81,8 @@
             <div class="logo-wrapper"><a href="/"><img class="img-fluid" src="/usersrc/assets/images/logo/logo.png" alt=""></a></div>
             <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i></div>
           </div>
-          <div class="nav-right col-12 pull-right right-header p-0" style="display: flex; justify-content: space-between;  align-items: center;">
-            <?php if($budget != null): ?>   
-            <?php
-             $budget = preg_replace("/\B(?=(\d{3})+(?!\d))/",",",$budget);
-            ?>         
-             <div style="display:flex; gap:10px">
-              <h5>موجودی </h5>   
-              <h5 data-money-text class="text-green"><?php echo e($budget); ?> </h5>
-              <h5>تومان</h5>
-             </div>  
-            <?php endif; ?>
+          <div class="nav-right col-12 pull-right right-header p-0">
+            
             <ul class="nav-menus">
             
               <li class="profile-nav onhover-dropdown p-0 me-0">

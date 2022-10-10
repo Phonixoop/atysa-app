@@ -355,21 +355,21 @@
   <script async>
     let obj = {};
     //let budget = localStorage.getItem('budget');
-    const totalBudget = budget;
-    let seleectedCount = 0;
-    let totalFee = 0;
+    // const totalBudget = budget;
+    // let seleectedCount = 0;
+    // let totalFee = 0;
 
     // this code is working like cheeze!! . you do not have the ability to change this code
-    const fee = {{$plateFee}};
+    // const fee = {{$plateFee}};
 
-    const options =  document.querySelectorAll('[data-option]');
-    options.forEach((item)=> item.selected ? seleectedCount++ : 0);
+    // const options =  document.querySelectorAll('[data-option]');
+    // options.forEach((item)=> item.selected ? seleectedCount++ : 0);
   //  budget = totalBudget - (fee * seleectedCount);
 
-    const totalFeeElement =  $('[data-total-fee]');
-    const moneyText = document.querySelector('[data-money-text]');
-    localStorage.setItem('budget', budget);
-     moneyText.textContent  = commify(budget);
+    // const totalFeeElement =  $('[data-total-fee]');
+    // const moneyText = document.querySelector('[data-money-text]');
+    // localStorage.setItem('budget', budget);
+    //  moneyText.textContent  = commify(budget);
   
     $(document).ready(function() {
       $('select').change(function(){
@@ -394,11 +394,11 @@
           $(this).parent().parent().parent().find('.mealCalory').text('انتخاب نشده است');
           $(this).parent().parent().parent().find('.mealCalory').css('color','#000');
         }
-        budget = totalBudget -  (fee * seleectedCount);
-      //  localStorage.setItem('budget', budget);
-        moneyText.textContent  = commify(budget);
+      //   budget = totalBudget -  (fee * seleectedCount);
+      // //  localStorage.setItem('budget', budget);
+      //   moneyText.textContent  = commify(budget);
      
-       totalFeeElement.text(totalFee+"");
+      //  totalFeeElement.text(totalFee+"");
       });
     });
 

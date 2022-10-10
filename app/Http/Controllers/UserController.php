@@ -195,7 +195,7 @@ class UserController extends Controller
             ->with('plateFee', $plateFee)
             ->with('holidayInWeek', $holidayInWeek)->with('monthNumber', $jalaliDate->format("m"))
             ->with("monthName", $monthName)
-            ->with("budget", $wallet["budget"]);
+            ->with("budget", isset($wallet["budget"]) ? $wallet["budget"] : null);
     }
     public function pollPage(Request $request)
     {
@@ -474,7 +474,7 @@ class UserController extends Controller
 
         $wallet = Wallet::where('user', Auth::id())->first();
 
-        $budget = $wallet["budget"];
+        $budget = isset($wallet["budget"]) ? $wallet["budget"] : 0;
 
         return view('user.wallet')->with("budget",  $budget);
     }
