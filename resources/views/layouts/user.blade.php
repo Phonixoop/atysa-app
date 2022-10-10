@@ -57,6 +57,16 @@
      
       }
     </style>
+    <script defer>
+
+            @php 
+            $wallet = App\Models\Wallet::where('user', Auth::id())->first();
+            $budget = $wallet["budget"] or null;
+         
+            @endphp
+            localStorage.setItem('budget', {{$budget}});
+            let budget = {{$budget}}
+    </script>
   </head>
   <body class="rtl">
     <!-- tap on top starts-->
@@ -78,12 +88,22 @@
               </div>
             </div>
           </form>
+          
           <div class="header-logo-wrapper col-auto p-0">
             <div class="logo-wrapper"><a href="/"><img class="img-fluid" src="/usersrc/assets/images/logo/logo.png" alt=""></a></div>
             <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i></div>
           </div>
-         
-          <div class="nav-right col-12 pull-right right-header p-0">
+          <div class="nav-right col-12 pull-right right-header p-0" style="display: flex; justify-content: space-between;  align-items: center;">
+            @if($budget != null)   
+            @php
+             $budget = preg_replace("/\B(?=(\d{3})+(?!\d))/",",",$budget);
+            @endphp         
+             <div style="display:flex; gap:10px">
+              <h5>موجودی </h5>   
+              <h5 data-money-text class="text-green">{{$budget}} </h5>
+              <h5>تومان</h5>
+             </div>  
+            @endif
             <ul class="nav-menus">
             
               <li class="profile-nav onhover-dropdown p-0 me-0">
@@ -112,6 +132,8 @@
                 </a>
               </li>
             </ul>
+            
+
           </div>
           <script class="result-template" type="text/x-handlebars-template">
             <div class="ProfileCard u-cf">                        
@@ -175,8 +197,6 @@
                     <a class="sidebar-link sidebar-title" href="/user/calory"><i class="myicon calory"></i><span class="lan-3">میزان کالری من</span></a>
                   </li>
                   @php
-
-
                   $companyId = Auth::user()->companyId;
                   $company = App\Models\Company::find($companyId);
                   $plateFee = $company->plateFee ? $company->plateFee : 0;

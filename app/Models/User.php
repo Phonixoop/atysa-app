@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Jenssegers\Mongodb\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -49,19 +50,34 @@ class User extends Authenticatable
     }
     public static function updateUserPlan($plates, $id)
     {
+
         $plans = array();
         $user = User::find($id);
+        $userJson = $user->jsonserialize();
+
         foreach ($plates as $date => $row) {
-            if ($row != null) {
-                $plans[$date] = $row;
-            }
+            // $userJson["plan"][$date] = $row;
+            $userJson["plan"][$date] = $row;
         }
-        $user->update(['plan' => $plans]);
+        // array_push($userJson["plan"], $plans);
+        // dd(json_encode($userJson, JSON_PRETTY_PRINT));
+        $user->fill($userJson);
+        $user->save();
     }
     public static function getPlansCount($id)
     {
         $user = User::find($id);
-        return count($user->plan);
+        $counter = 0;
+        $today = \Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::now())->format("d");
+        foreach ($user->plan as $date => $plateId) {
+            $rowDay = \Morilog\Jalali\Jalalian::fromCarbon(Carbon::createFromFormat('Y-m-d', $date))->format('d');
+
+            if ($plateId == null || $rowDay < $today)
+                continue;
+            $counter++;
+        }
+
+        return $counter;
     }
     public static function getPlans($plates, $id)
     {

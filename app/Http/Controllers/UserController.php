@@ -188,13 +188,14 @@ class UserController extends Controller
         $companyId = Auth::user()->companyId;
         $company = Company::find($companyId);
         $plateFee = $company->plateFee ? $company->plateFee : 0;
-
+        $wallet = Wallet::where('user', Auth::id())->first();
 
         return view('user.meals')->with('myDishes', $myArray)->with('weekOfMonth', $weekOfMonth)
             ->with('dayOfWeek', $dayOfWeek)->with('plan', $plan)->with('gregoryDates', $gregoryDates)
             ->with('plateFee', $plateFee)
             ->with('holidayInWeek', $holidayInWeek)->with('monthNumber', $jalaliDate->format("m"))
-            ->with("monthName", $monthName);
+            ->with("monthName", $monthName)
+            ->with("budget", $wallet["budget"]);
     }
     public function pollPage(Request $request)
     {
@@ -223,19 +224,133 @@ class UserController extends Controller
         $plates = Plate::where('userId', Auth::id())->get();
         return view('user.allPlates')->with('plates', $plates);
     }
+    // public function updatePlan(Request $request)
+    // {
+
+
+    //     $func = new functions();
+
+    //     $companyId = Auth::user()->companyId;
+    //     $company = Company::find($companyId);
+    //     $plateFee = $company->plateFee ? $company->plateFee : 0;
+
+    //     $plans = array();
+
+    //     foreach ($request->plate as $date => $row) {
+    //         if ($row != null) {
+    //             $plan = new PlanClass();
+    //             $plan->plateDate = $date;
+    //             $plan->plate = $row;
+    //             array_push($plans, $plan);
+    //         }
+    //     }
+
+
+
+    //     $boughtCount =  User::getPlansCount(Auth::id());
+    //     $plansRequestCount = count($plans);
+    //     $amount = max($plansRequestCount, $boughtCount) - $boughtCount;
+
+    //     $totalFee = $amount * $plateFee;
+
+    //     if ($totalFee > 0) // if have to pay first
+    //     {
+
+
+    //         #region create history
+    //         $purchase = new Purchase();
+    //         $purchase->hasPayed = false;
+    //         $purchase->totalFee = $totalFee;
+    //         $purchase->plans = $plans;
+    //         $purchase->purchaseDate = Carbon::now()->format('Y-m-d H-i-s');
+    //         $purchase->authority = null;
+
+
+    //         $history = new History();
+    //         $history->date = Carbon::now()->format('Y-m');
+
+    //         #endregion
+
+
+    //         $userBasket = UserBasket::where("userId", Auth::id())->first();
+
+
+
+    //         if ($userBasket) {
+    //             $basket = $userBasket->jsonserialize();
+    //             foreach ($basket["histories"] as $key => $historyItem) {
+
+    //                 if ($historyItem["date"] === Carbon::now()->format('Y-m')) {
+    //                     //  dd(json_encode($userBasket, JSON_PRETTY_PRINT));
+    //                     array_push($basket["histories"][$key]["purchases"], $purchase);
+    //                     //  dd(json_encode($userBasket["histories"][$key]["purchases"], JSON_PRETTY_PRINT));
+    //                     break;
+    //                 } else {
+    //                     $history->purchases = array($purchase);
+    //                     array_push($basket["histories"], $history);
+
+    //                     break;
+    //                 }
+    //             }
+
+    //             $userBasket->fill($basket);
+    //             $userBasket->save();
+    //         } else {
+
+    //             $data = array();
+    //             $data['userId'] = Auth::id();
+    //             $history->purchases = array($purchase);
+    //             $data['histories'] = array($history);
+    //             $userBasket =  UserBasket::create($data);
+    //         }
+
+
+    //         // zarinpal
+    //         //  dd(json_encode($userBasket, JSON_PRETTY_PRINT));
+
+    //         $response = zarinpal()
+    //             ->amount($totalFee * 1.09) // مبلغ تراکنش
+    //             ->request()
+    //             ->description(' خرید ' . $plansRequestCount . ' تعداد غذا') // توضیحات تراکنش
+    //             ->callbackUrl('http://localhost:8000/pay?basketId=' . $userBasket->id . "&historyDate=" . $history->date) // آدرس برگشت پس از پرداخت
+    //             ->mobile(Auth::user()->mobile) // شماره موبایل مشتری - اختیاری
+    //             ->email('sales@atysa.ir') // ایمیل مشتری - اختیاری
+    //             ->send();
+
+    //         if (!$response->success()) {
+    //             return $response->error()->message();
+    //         }
+
+    //         // ذخیره اطلاعات در دیتابیس
+    //         // $response->authority();
+
+    //         // هدایت مشتری به درگاه پرداخت
+    //         return $response->redirect();
+    //     }
+
+    //     User::updateUserPlan($request->plate, Auth::id());
+
+
+
+    //     // dd(json_encode($plans,JSON_PRETTY_PRINT));
+    //     return redirect('/');
+    // }
     public function updatePlan(Request $request)
     {
-
-
-        $func = new functions();
 
         $companyId = Auth::user()->companyId;
         $company = Company::find($companyId);
         $plateFee = $company->plateFee ? $company->plateFee : 0;
+        if ($plateFee <= 0) {
+            User::updateUserPlan($request->plate, Auth::id());
+            return redirect('/user/plan');
+        }
 
         $plans = array();
-
+        $today = \Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::now())->format("d");
         foreach ($request->plate as $date => $row) {
+            $rowDay = Carbon::createFromFormat('Y-m-d', $date);
+
             if ($row != null) {
                 $plan = new PlanClass();
                 $plan->plateDate = $date;
@@ -244,95 +359,40 @@ class UserController extends Controller
             }
         }
 
-
-
         $boughtCount =  User::getPlansCount(Auth::id());
+
         $plansRequestCount = count($plans);
-        $amount = max($plansRequestCount, $boughtCount) - $boughtCount;
 
-        $totalFee = $amount * $plateFee;
-
-        if ($totalFee > 0) // if have to pay first
-        {
-
-
-            #region create history
-            $purchase = new Purchase();
-            $purchase->hasPayed = false;
-            $purchase->totalFee = $totalFee;
-            $purchase->plans = $plans;
-            $purchase->purchaseDate = Carbon::now()->format('Y-m-d H-i-s');
-            $purchase->authority = null;
-
-
-            $history = new History();
-            $history->date = Carbon::now()->format('Y-m');
-
-            #endregion
-
-
-            $userBasket = UserBasket::where("userId", Auth::id())->first();
+        $amount = $plansRequestCount - $boughtCount;
+        $totalFee = abs($amount) * $plateFee;
 
 
 
-            if ($userBasket) {
-                $basket = $userBasket->jsonserialize();
-                foreach ($basket["histories"] as $key => $historyItem) {
 
-                    if ($historyItem["date"] === Carbon::now()->format('Y-m')) {
-                        //  dd(json_encode($userBasket, JSON_PRETTY_PRINT));
-                        array_push($basket["histories"][$key]["purchases"], $purchase);
-                        //  dd(json_encode($userBasket["histories"][$key]["purchases"], JSON_PRETTY_PRINT));
-                        break;
-                    } else {
-                        $history->purchases = array($purchase);
-                        array_push($basket["histories"], $history);
-
-                        break;
-                    }
-                }
-
-                $userBasket->fill($basket);
-                $userBasket->save();
-            } else {
-
-                $data = array();
-                $data['userId'] = Auth::id();
-                $history->purchases = array($purchase);
-                $data['histories'] = array($history);
-                $userBasket =  UserBasket::create($data);
-            }
+        $wallet = Wallet::where('user', Auth::id())->first();
+        $walletJson = $wallet->jsonserialize();
+        //   dd($plansRequestCount . " boughtCount : " . $boughtCount . " max : " . max($plansRequestCount, $boughtCount) . " " . " amount : " . $amount . " " . $totalFee);
+        if ($amount > 0)
+            $priceUpdate = $walletJson["budget"] - $totalFee;
+        else
+            $priceUpdate = $walletJson["budget"] + $totalFee;
 
 
-            // zarinpal
-            //  dd(json_encode($userBasket, JSON_PRETTY_PRINT));
 
-            $response = zarinpal()
-                ->amount($totalFee * 1.09) // مبلغ تراکنش
-                ->request()
-                ->description(' خرید ' . $plansRequestCount . ' تعداد غذا') // توضیحات تراکنش
-                ->callbackUrl('http://localhost:8000/pay?basketId=' . $userBasket->id . "&historyDate=" . $history->date) // آدرس برگشت پس از پرداخت
-                ->mobile(Auth::user()->mobile) // شماره موبایل مشتری - اختیاری
-                ->email('sales@atysa.ir') // ایمیل مشتری - اختیاری
-                ->send();
 
-            if (!$response->success()) {
-                return $response->error()->message();
-            }
+        if ($walletJson["budget"] - $totalFee < 0) {
+            $priceToCharge = $walletJson["budget"] - $totalFee;
 
-            // ذخیره اطلاعات در دیتابیس
-            // $response->authority();
-
-            // هدایت مشتری به درگاه پرداخت
-            return $response->redirect();
+            return redirect('/user/plan')->with(["message" => "کیف پول خود را " . $totalFee . " تومان شارژ کنید", "error" => true]);
         }
-
+        $walletJson["budget"] =  $priceUpdate;
+        //  dd($walletJson["budget"]);
+        $wallet->fill($walletJson);
+        $wallet->save();
         User::updateUserPlan($request->plate, Auth::id());
+        //    dd(json_encode($walletJson["budget"] - $plateFee *  $plansRequestCount, JSON_PRETTY_PRINT));
 
-
-
-        // dd(json_encode($plans,JSON_PRETTY_PRINT));
-        return redirect('/');
+        return redirect('/user/plan')->with(["message" => "با موفقیت ثبت شد", "error" => false]);
     }
     public function deletePlate(Request $request)
     {
