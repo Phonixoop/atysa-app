@@ -64,6 +64,8 @@ Route::prefix('user')->group(function () {
         Route::get('/wallet', "UserController@wallet");
 
         Route::post('/wallet/charge', "WalletController@charge");
+
+        Route::get('/transactions', "UserController@transactions");
     });
 });
 

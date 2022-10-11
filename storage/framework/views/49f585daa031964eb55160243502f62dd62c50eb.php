@@ -79,6 +79,10 @@
     background-color: #199EA3;
     cursor: pointer;
   }
+  .visible 
+  {
+    visibility: visible;
+  }
   .row 
   {
     display: flex;
@@ -165,6 +169,7 @@
   .result 
   {
     font-size:14px;
+    visibility: hidden;
   }
   .text-green
   {
@@ -239,7 +244,7 @@
               
               </div>
               <button data-btn-submit disabled class="submit">شارژ کیف پول</button>
-              <p class="result"></p>
+              <p data-price-in-word class="result hidden">0</p>
               <p class="">به مبلغ پرداختی 9 درصد مالیات بر ارزش افزوده اضافه می گردد</p>
             </form>
           </div>
@@ -250,11 +255,12 @@
 </div>
 
 
-<script> 
+  
+<script async> 
 
 const input = document.querySelector('[data-input]');
 const btnSubmit = document.querySelector('[data-btn-submit]');
-const result = document.querySelector('.result');
+const result = document.querySelector('[data-price-in-word ]');
 const btns_money = document.querySelectorAll('[data-btn-money]');
 
 const addBtn = document.querySelector('[data-btn-add]');
@@ -263,14 +269,12 @@ const subBtn = document.querySelector('[data-btn-sub]');
  // input.addEventListener('change', onChange(e.target.value));
   input.addEventListener('input', (e) => onChange(e.target.value));
 
-const MAX_PRICE = 99999999;
-const MIN_PRICE = 10000;
+  const MAX_PRICE = 1000000;
+  const MIN_PRICE = 10000;
+
 function parse(val) {
    const value =  val.replace(/[^0-9]/g, "") || "";
-
-   if(value.length <= 8)
-   return parseInt(value);
-   return parseInt(value.substr(0, value.length - 1)) || "";
+   return parseInt(value.toString().substr(0,  MAX_PRICE.toString().length )) || "";
 }
 
 function addPrice(val)
@@ -309,7 +313,10 @@ function btnClick(e,val) {
 
  function onChange(val)
  {
-  if(!val)
+ 
+ 
+  
+  if(!val || val == 0)
   {
     disable({btnSubmit,subBtn});
 
@@ -317,11 +324,13 @@ function btnClick(e,val) {
     return;
   }
 
+
     input.selectionStart = input.selectionEnd = 10000;
 
     const value  = isNaN(val) ? parse(val) || undefined : val;
-
-    if(value < MIN_PRICE || value > MAX_PRICE)
+   if(value > MAX_PRICE)
+     return setInput(999999);
+    if(value < MIN_PRICE)
     { 
       disable({btnSubmit,subBtn});
       return
@@ -338,6 +347,8 @@ function btnClick(e,val) {
 
   subBtn.disabled = true;
   subBtn.classList.remove("enabled");
+
+  result.classList.remove("visible")
  }
  function enable({btnSubmit,subBtn})
  {
@@ -348,14 +359,24 @@ function btnClick(e,val) {
 
    subBtn.disabled = false;
    subBtn.classList.add("enabled");
+
+   result.classList.add("visible")
  }
  function setInput(value)
  {
-   input.value = commify(value) || "";
-   if(value)
-   result.textContent = Num2persian(value) + " تومان";
+   if(value){
+    
+     input.value = commify(value.toString().substr(0,  MAX_PRICE.toString().length )) || "";
+    lastValue = value;
+
+    result.textContent = Num2persian(value) + " تومان";
+   }
    else
-   result.textContent ="";
+   {
+     result.classList.remove("visible");
+     result.textContent = "0";
+   }
+  
  }
 
  function commify(x) {

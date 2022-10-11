@@ -201,6 +201,12 @@
                       <span class="lan-3">کیف پول</span>
                     </a>
                   </li>
+                  <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title nav_item" href="/user/transactions" >
+                      <i class="myicon transaction"></i>
+                      <span class="lan-3">تراکنش ها</span>
+                    </a>
+                  </li>
                   @endif
             
                   @if(Auth::user()->type == 4)

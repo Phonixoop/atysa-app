@@ -293,6 +293,11 @@ body{
     width: 20px;
     height: 20px;
 }
+.myicon.transaction{
+    background: url('icon_pack/transaction.svg');
+    width: 20px;
+    height: 20px;
+}
 @media only screen and (max-width: 575.98px){
     html[dir="rtl"] .page-wrapper.compact-wrapper .nav-right .nav-menus {
         margin-left: 5px!important;

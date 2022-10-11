@@ -478,6 +478,14 @@ class UserController extends Controller
 
         return view('user.wallet')->with("budget",  $budget);
     }
+    public function transactions()
+    {
+        $wallet = Wallet::where('user', Auth::id())->first();
+        $transactions = $wallet["transactions"];
+        // dd(json_encode($transactions, JSON_PRETTY_PRINT));
+
+        return view("user.transactions")->with("transactions", $transactions);
+    }
 }
 
 class PlanClass
