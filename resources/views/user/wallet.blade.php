@@ -274,7 +274,7 @@ const subBtn = document.querySelector('[data-btn-sub]');
   input.addEventListener('input', (e) => onChange(e.target.value));
 
   const MAX_PRICE = 1000000;
-  const MIN_PRICE = 0;
+  const MIN_PRICE = 10000;
 
 function parse(val) {
    const value =  val.replace(/[^0-9]/g, "") || "";
@@ -315,7 +315,7 @@ function btnClick(e,val) {
 
  function onChange(val)
  {
- 
+  input.selectionStart = input.selectionEnd = 10000;
  
   
   if(!val || val == 0)
@@ -327,11 +327,13 @@ function btnClick(e,val) {
   }
 
 
-    input.selectionStart = input.selectionEnd = 10000;
+   
 
     const value  = isNaN(val) ? parse(val) || undefined : val;
    if(value > MAX_PRICE)
-     return setInput(999999);
+     {
+      return setInput(lastValue);
+     }
     if(value < MIN_PRICE)
     { 
       disable({btnSubmit,subBtn});
@@ -370,7 +372,7 @@ function btnClick(e,val) {
   input.value = "";
    if(value){
       
-     input.value = commify(value.toString().substr(0,  MAX_PRICE.toString().length )) || "";
+     input.value = commify(value) || "";
     lastValue = value;
 
     result.textContent = Num2persian(value) + " تومان";
