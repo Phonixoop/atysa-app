@@ -274,7 +274,7 @@ const subBtn = document.querySelector('[data-btn-sub]');
   input.addEventListener('input', (e) => onChange(e.target.value));
 
   const MAX_PRICE = 1000000;
-  const MIN_PRICE = 10000;
+  const MIN_PRICE = 0;
 
 function parse(val) {
    const value =  val.replace(/[^0-9]/g, "") || "";
@@ -294,11 +294,9 @@ function subPrice(val)
 {
   const value  = parse(val);
   const prev  = parse(input.value);
-  if(prev  - value < 0)
-  return;
   const finalValue = prev - value;
-    
-  onChange(prev - value);
+
+  onChange(finalValue);
 }
 
 
@@ -324,7 +322,7 @@ function btnClick(e,val) {
   {
     disable({btnSubmit,subBtn});
 
-    setInput("");
+    setInput(0);
     return;
   }
 
@@ -368,8 +366,10 @@ function btnClick(e,val) {
  }
  function setInput(value)
  {
+  if(value === 0)
+  input.value = "";
    if(value){
-    
+      
      input.value = commify(value.toString().substr(0,  MAX_PRICE.toString().length )) || "";
     lastValue = value;
 
