@@ -387,7 +387,8 @@ class UserController extends Controller
 
 
         if ($walletJson["budget"] - $totalFee < 0 && $amount > 0) {
-            return redirect('/user/plan')->with(["message" => "کیف پول خود را " . $totalFee . " تومان شارژ کنید", "error" => true]);
+            $commifyTotalFee = preg_replace("/\B(?=(\d{3})+(?!\d))/", ",", $totalFee);
+            return redirect('/user/plan')->with(["message" => "کیف پول خود را " .  $commifyTotalFee . " تومان شارژ کنید", "error" => true]);
         }
         $walletJson["budget"] =  $priceUpdate;
         //  dd($walletJson["budget"]);
