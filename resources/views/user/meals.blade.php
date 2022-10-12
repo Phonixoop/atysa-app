@@ -303,23 +303,29 @@
                           @endif
                       </select> 
                 @else 
-
+               
                 @php $planDishes = $plan->days[$week][myDayOfWeekToJalali($row->dayOfWeek)];
                   foreach($myDishes as $row2){
                       array_push($planDishes, $row2);
                   }
-        
+                 
                  @endphp
                 @foreach($planDishes as $row2)
                 @php $plate = \App\Models\Plate::find($row2); @endphp
-            
-                  @if(isset(Auth::user()->plan[$row->format('Y-m-d')])) 
-                    @if(Auth::user()->plan[$row->format('Y-m-d')] == $row2)
-                    @if($plate->name)
-                    {{$plate->name}}
-                 @endif
-                    @endif
+                  @if(Auth::user()->plan[$row->format('Y-m-d')] == null)
+                 <span style="color:#bf613f"> عدم انتخاب غذا</span>
                   @endif
+                @if(isset(Auth::user()->plan[$row->format('Y-m-d')])) 
+               
+                    @if(Auth::user()->plan[$row->format('Y-m-d')] == $row2)
+                    
+                      @if($plate->name)
+                      <span style="color:black; font-weight: bold">{{$plate->name ?? "عدم انتخاب غذا"}}</span>
+                      @endif
+                    @else 
+                    here
+                    @endif
+                @endif
                  
               
                 @endforeach

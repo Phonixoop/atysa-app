@@ -306,24 +306,29 @@
                           <?php endif; ?>
                       </select> 
                 <?php else: ?> 
-
+               
                 <?php $planDishes = $plan->days[$week][myDayOfWeekToJalali($row->dayOfWeek)];
                   foreach($myDishes as $row2){
                       array_push($planDishes, $row2);
                   }
-        
+                 
                  ?>
                 <?php $__currentLoopData = $planDishes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row2): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php $plate = \App\Models\Plate::find($row2); ?>
-            
-                  <?php if(isset(Auth::user()->plan[$row->format('Y-m-d')])): ?> 
-                    <?php if(Auth::user()->plan[$row->format('Y-m-d')] == $row2): ?>
-                    <?php if($plate->name): ?>
-                    <?php echo e($plate->name); ?>
-
-                 <?php endif; ?>
-                    <?php endif; ?>
+                  <?php if(Auth::user()->plan[$row->format('Y-m-d')] == null): ?>
+                 <span style="color:#bf613f"> عدم انتخاب غذا</span>
                   <?php endif; ?>
+                <?php if(isset(Auth::user()->plan[$row->format('Y-m-d')])): ?> 
+               
+                    <?php if(Auth::user()->plan[$row->format('Y-m-d')] == $row2): ?>
+                    
+                      <?php if($plate->name): ?>
+                      <span style="color:black; font-weight: bold"><?php echo e($plate->name ?? "عدم انتخاب غذا"); ?></span>
+                      <?php endif; ?>
+                    <?php else: ?> 
+                    here
+                    <?php endif; ?>
+                <?php endif; ?>
                  
               
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
