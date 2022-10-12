@@ -372,6 +372,7 @@ class UserController extends Controller
         $wallet = Wallet::where('user', Auth::id())->first();
         if (!isset($wallet)) {
             $wallet = Wallet::create([
+                "user" => Auth::id(),
                 "budget" => 0,
 
             ]);
@@ -486,11 +487,12 @@ class UserController extends Controller
     public function transactions()
     {
         $wallet = Wallet::where('user', Auth::id())->first();
-        if (isset($wallet["transactions"]))
-            $transactions = null;
-        $transactions = $wallet["transactions"];
-        // dd(json_encode($transactions, JSON_PRETTY_PRINT));
 
+        if (!isset($wallet))
+            $transactions = null;
+        else
+            $transactions = $wallet["transactions"];
+        // dd(json_encode($transactions, JSON_PRETTY_PRINT));
         return view("user.transactions")->with("transactions", $transactions);
     }
 }
