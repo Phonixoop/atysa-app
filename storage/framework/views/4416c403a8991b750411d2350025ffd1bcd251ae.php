@@ -85,7 +85,8 @@
                         </div>
                     </td>
                     <td >
-                        <div class="flex justify-center items-center"> <?php echo e($transaction["amount"]); ?></div>
+                      <?php $amount = preg_replace("/\B(?=(\d{3})+(?!\d))/",",",$transaction["amount"]); ?> 
+                        <div class="flex justify-center items-center"><?php echo e($amount); ?> تومان</div>
                     </td>
                     <td  class="flex justify-center items-center">
                  

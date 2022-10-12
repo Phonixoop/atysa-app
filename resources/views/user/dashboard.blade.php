@@ -118,8 +118,8 @@
                       @endif
                     @else
                       @if(isset($defaults[$weekCounter-1][\Morilog\Jalali\CalendarUtils::strftime('w', strtotime($row))]))
-                  
-                        {{\App\Models\Plate::find($defaults[$weekCounter-1][\Morilog\Jalali\CalendarUtils::strftime('w', strtotime($row))])->name}} (پیش فرض)
+                  {{-- //{{\App\Models\Plate::find($defaults[$weekCounter-1][\Morilog\Jalali\CalendarUtils::strftime('w', strtotime($row))])->name --}}
+                       عدم انتخاب  (پیش فرض)
                       @endif
                     @endif
                   </td>

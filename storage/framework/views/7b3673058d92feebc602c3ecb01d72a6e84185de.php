@@ -122,7 +122,7 @@
                     <?php else: ?>
                       <?php if(isset($defaults[$weekCounter-1][\Morilog\Jalali\CalendarUtils::strftime('w', strtotime($row))])): ?>
                   
-                        <?php echo e(\App\Models\Plate::find($defaults[$weekCounter-1][\Morilog\Jalali\CalendarUtils::strftime('w', strtotime($row))])->name); ?> (پیش فرض)
+                       عدم انتخاب  (پیش فرض)
                       <?php endif; ?>
                     <?php endif; ?>
                   </td>
