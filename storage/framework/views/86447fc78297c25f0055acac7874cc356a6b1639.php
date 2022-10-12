@@ -315,7 +315,7 @@
                  ?>
                 <?php $__currentLoopData = $planDishes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row2): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php $plate = \App\Models\Plate::find($row2); ?>
-                  <?php if(Auth::user()->plan[$row->format('Y-m-d')] == null): ?>
+                  <?php if(!isset(Auth::user()->plan[$row->format('Y-m-d')])): ?>
                  <span style="color:#bf613f"> عدم انتخاب غذا</span>
                   <?php endif; ?>
                 <?php if(isset(Auth::user()->plan[$row->format('Y-m-d')])): ?> 

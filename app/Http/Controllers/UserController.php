@@ -370,6 +370,12 @@ class UserController extends Controller
 
 
         $wallet = Wallet::where('user', Auth::id())->first();
+        if (!isset($wallet)) {
+            $wallet = Wallet::create([
+                "budget" => 0,
+
+            ]);
+        }
         $walletJson = $wallet->jsonserialize();
         //   dd($plansRequestCount . " boughtCount : " . $boughtCount . " max : " . max($plansRequestCount, $boughtCount) . " " . " amount : " . $amount . " " . $totalFee);
         if ($amount > 0)
@@ -381,8 +387,6 @@ class UserController extends Controller
 
 
         if ($walletJson["budget"] - $totalFee < 0 && $amount > 0) {
-            $priceToCharge = $walletJson["budget"] - $totalFee;
-
             return redirect('/user/plan')->with(["message" => "کیف پول خود را " . $totalFee . " تومان شارژ کنید", "error" => true]);
         }
         $walletJson["budget"] =  $priceUpdate;
