@@ -312,7 +312,7 @@
                  @endphp
                 @foreach($planDishes as $row2)
                 @php $plate = \App\Models\Plate::find($row2); @endphp
-                  @if(Auth::user()->plan[$row->format('Y-m-d')] == null)
+                  @if(!isset(Auth::user()->plan[$row->format('Y-m-d')]))
                  <span style="color:#bf613f"> عدم انتخاب غذا</span>
                   @endif
                 @if(isset(Auth::user()->plan[$row->format('Y-m-d')])) 
