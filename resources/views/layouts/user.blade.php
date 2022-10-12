@@ -190,11 +190,15 @@
                   @php
                   $companyId = Auth::user()->companyId;
                   $company = App\Models\Company::find($companyId);
-                  $plateFee = $company->plateFee ? $company->plateFee : 0;
-
+                  if(isset($company->plateFee))
+                  {
+                    $plateFee = $company->plateFee ? $company->plateFee : 0;
                     $hasWallet = $plateFee <= 0 ? false : true;
+                  }
+
+                  
                   @endphp
-                  @if($hasWallet)
+                  @if(isset($hasWallet))
                   <li class="sidebar-list">
                     <a class="sidebar-link sidebar-title nav_item" href="/user/wallet" >
                       <i class="myicon wallet"></i>

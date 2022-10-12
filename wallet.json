@@ -1,18 +1,45 @@
 {
-    "userId": "633ed4fc984202dd12039e15",
-    "budget": "5000000",
-    "transations": [
+    "_id": {
+        "$oid": "6342e22082b238f1ad0476e8"
+    },
+    "user": "633ed4fc984202dd12039e15",
+    "budget": 2000,
+    "transactions": [
+        {
+            "hasPayed": true,
+            "amount": 10000,
+            "date": "2022-10-09 18:30:48",
+            "authority": "A00000000000000000000000000382366540"
+        },
         {
             "hasPayed": false,
-            "amount": "14000",
-            "date": "2014-12-01T00:00:00",
+            "amount": 20000,
+            "date": "2022-10-09 19:30:48",
             "authority": null
         },
         {
-            "hasPayed": true,
-            "amount": "500000",
-            "date": "2014-12-01T00:00:00",
-            "authority": "asdasdasdasd"
+            "hasPayed": false,
+            "amount": 5000,
+            "date": "2022-10-09 07:51:19",
+            "authority": null
+        },
+        {
+            "hasPayed": false,
+            "amount": 200000,
+            "date": "2022-10-11 05:51:05",
+            "authority": null
+        },
+        {
+            "hasPayed": false,
+            "amount": 1000000,
+            "date": "2022-10-12 04:32:50",
+            "authority": null
         }
-    ]
+    ],
+    "updated_at": {
+        "$date": "2022-10-12T13:02:56.068Z"
+    },
+    "created_at": {
+        "$date": "2022-10-09T15:00:48.650Z"
+    }
 }

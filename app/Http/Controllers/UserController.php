@@ -380,7 +380,7 @@ class UserController extends Controller
 
 
 
-        if ($walletJson["budget"] - $totalFee < 0) {
+        if ($walletJson["budget"] - $totalFee < 0 && $amount > 0) {
             $priceToCharge = $walletJson["budget"] - $totalFee;
 
             return redirect('/user/plan')->with(["message" => "کیف پول خود را " . $totalFee . " تومان شارژ کنید", "error" => true]);

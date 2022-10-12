@@ -55,7 +55,8 @@
   <!-- Container-fluid starts-->
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-6" style="padding:0px; border-radius: 20px; !important; margin:0 auto; background-color: #fcffff;overflow:hideen; ">
+      <div class="col-sm-6" style="padding:0px; text-align: center; border-radius: 20px; !important; margin:0 auto; background-color: #fcffff;overflow:hideen; ">
+        <?php if(isset($transactions)): ?>
         <table dir="rtl" class="table">
             <thead class="thead-dark">
               <tr class="">
@@ -105,7 +106,11 @@
         
             </tbody>
           </table>
-      </div>
+          <?php else: ?>
+            تراکنشی وجود ندارد
+          <?php endif; ?>
+        
+        </div>
     </div>
   </div>
   <!-- Container-fluid Ends-->
