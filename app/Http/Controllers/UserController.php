@@ -486,6 +486,8 @@ class UserController extends Controller
     public function transactions()
     {
         $wallet = Wallet::where('user', Auth::id())->first();
+        if (!isset($wallet["transactions"]))
+            $transactions = null;
         $transactions = $wallet["transactions"];
         // dd(json_encode($transactions, JSON_PRETTY_PRINT));
 
