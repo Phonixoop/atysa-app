@@ -68,6 +68,9 @@ class User extends Authenticatable
     {
         $user = User::find($id);
         $counter = 0;
+        if (!isset($user->plan) || $user->plan == [])
+            return 0;
+
         $today = \Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::now())->format("d");
         foreach ($user->plan as $date => $plateId) {
             $rowDay = \Morilog\Jalali\Jalalian::fromCarbon(Carbon::createFromFormat('Y-m-d', $date))->format('d');
