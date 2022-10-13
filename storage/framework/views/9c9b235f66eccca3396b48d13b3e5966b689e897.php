@@ -184,9 +184,9 @@
                     $hasWallet = $plateFee <= 0 ? false : true;
                   }
 
-                  
+            
                   ?>
-                  <?php if(isset($hasWallet)): ?>
+                  <?php if($hasWallet): ?>
                   <li class="sidebar-list">
                     <a class="sidebar-link sidebar-title nav_item" href="/user/wallet" >
                       <i class="myicon wallet"></i>

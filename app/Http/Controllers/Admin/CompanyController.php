@@ -103,7 +103,7 @@ class CompanyController extends Controller
         $data['plateFee'] = $request->plateFee;
 
         if (is_numeric($request->plateFee)) {
-            $data['plateFee'] =   $request->plateFee > 0 ? $request->plateFee : 0;
+            $data['plateFee'] =   $request->plateFee > 0 ? intval($request->plateFee) : 0;
         } else {
             $data['plateFee'] = 0;
         }
