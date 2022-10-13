@@ -18,9 +18,11 @@ class WalletController extends Controller
     {
         $func = new functions();
         if (is_null($request->amount) || $request->amount <= 0)
-            return view('purchase')->with("error", "خطا");
+            return redirect('/user/wallet')->with("error", "خطا");
 
         $amount =  $func->parse($request->amount);
+        if (!is_numeric($amount))
+            return redirect('/user/wallet')->with("error", "خطا");
         $user = Auth::user();
 
         $transaction = new Transaction();
