@@ -32,7 +32,8 @@
   .btn_choose
   {
     background-color: #ffffff;
-    border:1px solid gray;
+    color:#737373;
+    border:1px dashed gray;
     border-radius: 100000px;
     font-size: 18px;
     font-weight: 100;
@@ -69,7 +70,8 @@
   .btn_active
   {  
     border:2px solid #199EA3;
-    box-shadow: 1px 1px 10px #199ea37f
+    box-shadow: 1px 1px 10px #199ea37f;
+    color:black;
   }
   .submit
   {
@@ -255,7 +257,7 @@
               </div>
               <div class="input_holder">
                 
-                <span data-btn-add class="btn_addsub enabled" onclick="changePrice('10000')" >
+                <span data-btn-add class="btn_addsub  enabled" onclick="changePrice('10000')" >
                   <svg width="24" height="24" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M13 11h4a1 1 0 010 2h-4v4a1 1 0 01-2 0v-4H7a1 1 0 010-2h4V7a1 1 0 012 0v4z">
                       </path>

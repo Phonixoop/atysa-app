@@ -61,7 +61,12 @@
     user-select: none;
     cursor: not-allowed;
   }
-
+  .btn_addsub.enabled 
+  {
+    border:2px solid var( --text-green);
+    color:var( --text-green);
+    cursor: pointer;
+  }
   .btn_active
   {  
     border:2px solid #199EA3;
@@ -256,7 +261,7 @@
               </div>
               <div class="input_holder">
                 
-                <span data-btn-add class="btn_addsub enabled" onclick="changePrice('10000')" >
+                <span data-btn-add class="btn_addsub  enabled" onclick="changePrice('10000')" >
                   <svg width="24" height="24" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M13 11h4a1 1 0 010 2h-4v4a1 1 0 01-2 0v-4H7a1 1 0 010-2h4V7a1 1 0 012 0v4z">
                       </path>
