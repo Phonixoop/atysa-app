@@ -8,19 +8,17 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
-  width: auto;
-  top: 10px;
-
+  left: 50%;
+  transform:translateX(-50%);
+  top: 20px;
   padding:5px 10px; 
   border-radius:10px;
-
+  width: auto;
   color:black;
   z-index:99999999;
   font-size: 16px;
-  right: 0;
-  animation: slidein 1s forwards,
-  opacity 7s linear forwards;
-
+  animation: slidein 5s forwards,
+   opacity 10s linear forwards; 
 }
 .good 
 {
@@ -62,24 +60,36 @@
     display: flex;
 }
 @keyframes slidein {
-  from {
-    transform: translateX(1000%);
+  0% {  
+    transform:  translateX(-50%) translateY(-1000px);
+  }
+  10%
+  {
+    transform:  translateX(-50%) translateY(20px);
+  }
+  50%{
+    transform:  translateX(-50%) translateY(20px);
+  }
+  90%
+  {
+    transform:  translateX(-50%) translateY(20px);
   }
 
-  to {
+  100% {
  
-    transform: translateX(-115px);
+    transform:  translateX(-50%) translateY(-1000px);
   
   }
 }
 @keyframes opacity {
     0%,{ opacity: 0;
-      display:block; }
+      display:flex; }
     25%,{ opacity: 1; }
     50% { opacity: 0.8; }
     100% {
+      display:none;
        opacity: 0;
-       display:none;
+     
      }
 }
 </style>
