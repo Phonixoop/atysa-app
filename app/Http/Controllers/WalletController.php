@@ -30,15 +30,8 @@ class WalletController extends Controller
         $transaction->authority = null;
 
         $wallet = Wallet::where('user', Auth::id())->first();
-        if (!isset($wallet)) {
-            $wallet = Wallet::create([
-                "user" => Auth::id(),
-                "budget" => 0,
-                "transactions" => [],
 
-            ]);
-        }
-        if ($wallet) {
+        if (isset($wallet) && isset($wallet->transactions)) {
             $walletJson = $wallet->jsonserialize();
 
             array_push($walletJson["transactions"], $transaction);
