@@ -32,7 +32,8 @@
   .btn_choose
   {
     background-color: #ffffff;
-    border:1px solid gray;
+    color:#737373;
+    border:1px dashed gray;
     border-radius: 100000px;
     font-size: 18px;
     font-weight: 100;
@@ -60,16 +61,12 @@
     user-select: none;
     cursor: not-allowed;
   }
-  .btn_addsub.enabled 
-  {
-    border:2px solid var( --text-green);
-    color:var( --text-green);
-    cursor: pointer;
-  }
+
   .btn_active
   {  
     border:2px solid #199EA3;
-    box-shadow: 1px 1px 10px #199ea37f
+    box-shadow: 1px 1px 10px #199ea37f;
+    color:black;
   }
   .submit
   {
