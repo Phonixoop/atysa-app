@@ -4,7 +4,18 @@
 <?php $__env->startSection('content'); ?>
 <script src="/main/js/num2persian-min.js" async></script>
 <style>
+/* Chrome, Safari, Edge, Opera */
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
+/* Firefox */
+.input[type=number] {
+  -moz-appearance: textfield;
+  
+}
   
   :root 
   {
@@ -159,6 +170,9 @@
     border:none;
     text-align: center;
     font-size: 20px;
+    color:transparent;
+    opacity: 1;
+    caret-color: #199ea300;
   }
   .input_holder 
   {
@@ -166,6 +180,21 @@
     flex-direction: row;
     column-gap:10px;
   }
+  .caret 
+  {
+    color:#199EA3;
+    display: inline-block;
+    overflow: visible;
+    animation: blink 0.8s infinite;
+    animation-timing-function: cubic-bezier(1, -1, 0, 1);
+  }
+  
+@keyframes blink {
+	0% {opacity: 0}
+	49%{opacity: 0}
+	50% {opacity: 1}
+}
+
   .result 
   {
     font-size:14px;
@@ -226,16 +255,24 @@
               </div>
               <div class="input_holder">
                 
-                <span data-btn-add class="btn_addsub enabled" onclick="addPrice('10000')" >
+                <span data-btn-add class="btn_addsub enabled" onclick="changePrice('10000')" >
                   <svg width="24" height="24" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M13 11h4a1 1 0 010 2h-4v4a1 1 0 01-2 0v-4H7a1 1 0 010-2h4V7a1 1 0 012 0v4z">
                       </path>
                     </svg>
                   </span>
 
-                <input data-input autocomplete="off" class="input" placeholder="مبلغ دلخواه" value="" type="text" name="amount" id="amount" required>
-                
-                <span data-btn-sub class="btn_addsub" onclick="subPrice('10000')">
+                <div data-focus style="display: flex; justify-content: center ; align-items: center">
+                  <input data-input type="number" autocomplete="off" class="input" placeholder="مبلغ دلخواه" value="" type="text" name="amount" id="amount" required>
+                  <div style="position: absolute; white-space: pre; display: flex; align-items: center; gap:5px;">
+                    <span style="position: relative;font-size: 20px; display:flex">
+                      <span data-caret class="caret">|</span>
+                      <span data-input-value></span>
+                    </span>
+                    <span data-input-static style="position: relative;font-size: 10px"></span>
+                  </div>
+                </div>
+                <span data-btn-sub class="btn_addsub" onclick="changePrice('-10000')">
                   <svg  width="24" height="24" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M7 13a1 1 0 010-2h10a1 1 0 010 2H7z">
                       </path>
@@ -259,13 +296,22 @@
 <script async> 
 
 const input = document.querySelector('[data-input]');
+const divForFocus = document.querySelector('[data-focus]');
+const inputSpan = document.querySelector('[data-input-value]');
+const spanStatic = document.querySelector('[data-input-static]');
 const btnSubmit = document.querySelector('[data-btn-submit]');
 const result = document.querySelector('[data-price-in-word ]');
 const btns_money = document.querySelectorAll('[data-btn-money]');
-
+const caret = document.querySelector('[data-caret]');
 const addBtn = document.querySelector('[data-btn-add]');
 const subBtn = document.querySelector('[data-btn-sub]');
-
+input.focus();
+divForFocus.addEventListener('click', function()
+{
+  input.focus();
+})
+input.addEventListener('blur', (e) => caret.style.visibility = 'hidden');
+input.addEventListener('focus', (e) => caret.style.visibility = 'visible');
  // input.addEventListener('change', onChange(e.target.value));
   input.addEventListener('input', (e) => onChange(e.target.value));
 
@@ -273,28 +319,26 @@ const subBtn = document.querySelector('[data-btn-sub]');
   const MIN_PRICE = 10000;
 
 function parse(val) {
-   const value =  val.replace(/[^0-9]/g, "") || "";
+   const value =  val.toString().replace(/[^0-9]/g, "") || "";
    return parseInt(value.toString().substr(0,  MAX_PRICE.toString().length )) || "";
 }
 
-function addPrice(val)
+function changePrice(val)
 {
-  const value  = parse(val);
+  const value  =  parseInt(val);
+
   const prev  = parse(input.value) || 0;
   const finalValue = prev + value;
-  if(finalValue < MIN_PRICE || finalValue > MAX_PRICE)
-      return
+  if(finalValue < MIN_PRICE )
+ {
+  console.log("here")
+  disable({btnSubmit,subBtn});
+  return setInput(0);
+ }
+  if(finalValue > MAX_PRICE)
+    return
   onChange(finalValue);
 }
-function subPrice(val)
-{
-  const value  = parse(val);
-  const prev  = parse(input.value);
-  const finalValue = prev - value;
-
-  onChange(finalValue);
-}
-
 
 function btnClick(e,val) {
 
@@ -311,8 +355,8 @@ function btnClick(e,val) {
 
  function onChange(val)
  {
-  input.selectionStart = input.selectionEnd = 10000;
- 
+ // input.selectionStart = input.selectionEnd = 10000;
+
   
   if(!val || val == 0)
   {
@@ -324,8 +368,8 @@ function btnClick(e,val) {
 
 
    
-
-    const value  = isNaN(val) ? parse(val) || undefined : val;
+   const value = val;
+   // const value  = isNaN(val) ? parse(val) || undefined : val;
    if(value > MAX_PRICE)
      {
       return setInput(lastValue);
@@ -333,10 +377,12 @@ function btnClick(e,val) {
     if(value < MIN_PRICE)
     { 
       disable({btnSubmit,subBtn});
+      setInput(value);
       return
     }
   
     enable({btnSubmit,subBtn}); 
+
     setInput(value);
   
  }
@@ -364,21 +410,25 @@ function btnClick(e,val) {
  }
  function setInput(value)
  {
+  inputSpan.textContent =  commify(value) || "";
   if(value === 0)
   input.value = "";
    if(value){
       
-     input.value = commify(value) || "";
+     input.value = value;
     lastValue = value;
 
     result.textContent = Num2persian(value) + " تومان";
+    spanStatic.textContent = "تومان";
    }
    else
    {
      result.classList.remove("visible");
      result.textContent = "0";
+     spanStatic.textContent = "";
    }
   
+ 
  }
 
  function commify(x) {

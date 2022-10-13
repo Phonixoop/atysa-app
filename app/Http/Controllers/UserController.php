@@ -374,6 +374,7 @@ class UserController extends Controller
             $wallet = Wallet::create([
                 "user" => Auth::id(),
                 "budget" => 0,
+                "transactions" => []
 
             ]);
         }

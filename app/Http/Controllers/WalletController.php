@@ -29,9 +29,18 @@ class WalletController extends Controller
         $transaction->date = Carbon::now()->format("Y-m-d h:i:s");
         $transaction->authority = null;
 
-        $wallet = Wallet::where("user", $user->id)->first();
+        $wallet = Wallet::where('user', Auth::id())->first();
+        if (!isset($wallet)) {
+            $wallet = Wallet::create([
+                "user" => Auth::id(),
+                "budget" => 0,
+                "transactions" => [],
+
+            ]);
+        }
         if ($wallet) {
             $walletJson = $wallet->jsonserialize();
+
             array_push($walletJson["transactions"], $transaction);
             $wallet->fill($walletJson);
             $wallet->save();
