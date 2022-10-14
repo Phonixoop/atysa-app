@@ -303,7 +303,9 @@ const inputSpan = document.querySelector('[data-input-value]');
 const spanStatic = document.querySelector('[data-input-static]');
 const btnSubmit = document.querySelector('[data-btn-submit]');
 const result = document.querySelector('[data-price-in-word ]');
+
 const btns_money = document.querySelectorAll('[data-btn-money]');
+
 const caret = document.querySelector('[data-caret]');
 const addBtn = document.querySelector('[data-btn-add]');
 const subBtn = document.querySelector('[data-btn-sub]');
@@ -396,7 +398,8 @@ function btnClick(e,val) {
   subBtn.disabled = true;
   subBtn.classList.remove("enabled");
 
-  result.classList.remove("visible")
+  result.classList.remove("visible");
+  btns_money.forEach(el => el.classList.remove('btn_active'));
  }
  function enable({btnSubmit,subBtn})
  {
