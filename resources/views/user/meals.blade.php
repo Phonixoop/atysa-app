@@ -279,8 +279,6 @@
                   <td>
                     <div class="form-group">
                       @php 
-
-                  
                       $rowDay = \Morilog\Jalali\Jalalian::fromCarbon($row)->format("d");
                       @endphp
                 @if($today <  $rowDay) 
@@ -324,6 +322,7 @@
                 @php $plate = \App\Models\Plate::find($row2); @endphp
                   @if(!isset(Auth::user()->plan[$row->format('Y-m-d')]))
                  <span style="color:#bf613f"> عدم انتخاب غذا</span>
+                 <input type="hidden" name="plate[{{$row->format('Y-m-d')}}]" />
                   @endif
                 @if(isset(Auth::user()->plan[$row->format('Y-m-d')])) 
                

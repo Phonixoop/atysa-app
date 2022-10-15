@@ -441,7 +441,7 @@ class CompanyController extends Controller
 
                             $data[$key2]['users'][$key]['plate'] = Plate::find($row->plan[$row2->format('Y-m-d')])->name ?? "عدم انتخاب";
                         } else {
-                            $data[$key2]['users'][$key]['plate'] = Plate::find($plan->default[$currentWeek][$currentDay])->name;
+                            $data[$key2]['users'][$key]['plate'] = "عدم انتخاب غذا";
                         }
                         foreach ($todayPlates as $key => $planDish) {
                             if (isset($row->plan[$row2->format('Y-m-d')])) {

@@ -345,7 +345,7 @@ class UserController extends Controller
             User::updateUserPlan($request->plate, Auth::id());
             return redirect('/user/plan');
         }
-
+        dd($request->plate);
         $plans = array();
         $today = \Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::now())->format("d");
         foreach ($request->plate as $date => $row) {
