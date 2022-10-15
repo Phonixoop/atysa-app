@@ -493,6 +493,7 @@ class UserController extends Controller
             $transactions = null;
         else
             $transactions = $wallet["transactions"];
+
         // dd(json_encode($transactions, JSON_PRETTY_PRINT));
         return view("user.transactions")->with("transactions", $transactions);
     }

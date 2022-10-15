@@ -57,6 +57,7 @@
     <div class="row">
    
           <?php if(isset($transactions)): ?>
+          <?php $transactions = array_reverse($transactions); ?>
           <div class="col-sm-6" style="padding:0px; text-align: center; border-radius: 20px; !important; margin:0 auto; background-color: #fcffff;overflow:hideen; ">
           <table dir="rtl" class="table">
               <thead class="thead-dark">
