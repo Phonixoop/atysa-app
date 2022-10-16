@@ -6,14 +6,15 @@
 <link href="/assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
+
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="page-title mb-0 font-size-18">برنامه غذایی</h4>
+            <h4 class="page-title mb-0 font-size-18">پلن ها</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">برنامه غذایی</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">پلن ها</a></li>
                     <li class="breadcrumb-item active">مشاهده همه</li>
                 </ol>
             </div>
@@ -27,19 +28,19 @@
             <div class="card-body">
                 @if(Session::has('removed'))
                 <div class="alert alert-success" role="alert">
-                    با موفقیت حذف شد.
+                    {{Session('removed')}}
                 </div>
                 @endif
                 @if(Session::has('updated'))
                 <div class="alert alert-success" role="alert">
-                    با موفقیت آپدیت شد.
+                    {{Session('updated')}}
                 </div>
                 @endif
                 <table id="datatable2" class="table table-bordered dt-responsive datatable" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
                             {{-- <th>#</th> --}}
-                            <th>ماه</th>
+                            <th>پلن ها</th>
                             <th>عملیات</th>
                         </tr>
                     </thead>
@@ -48,14 +49,17 @@
                         @foreach($all as $key=>$row)
                         <tr>
                             {{-- <td>{{$row->id}}</td> --}}
-                            <td>{{$row->month}}</td>
+                            <td>{{$row->name}}</td>
                             <td>
+                               <div style="display: flex; gap:5px;">
                                 <form action="/admin/plans/delete" method="POST">
                                     @csrf
                                     <input type="hidden" name="id" value="{{$row->id}}" />
-                                    <button type="submit" class="btn btn-danger waves-effect waves-light">حذف</button>
+                                    <button style="border-radius: 20px;" type="submit" class="btn btn-danger waves-effect waves-light">حذف</button>
                                 </form>
-                                <a href="/admin/plans/single/{{$row->id}}" class="btn btn-secondary waves-effect waves-light">ویرایش</a>
+                                <a style="border-radius: 20px; background-color: gray" href="/admin/plans/single/{{$row->id}}" class="btn btn-primary  waves-effect waves-light">ویرایش</a>
+                                <a style="border-radius: 20px;" href="/admin/plans/single/{{$row->id}}/months/all" class="btn btn-primary waves-effect waves-light">ماه ها</a>
+                               </div>
                             </td>
                         </tr>
                         @endforeach

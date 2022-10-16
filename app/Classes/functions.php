@@ -474,4 +474,14 @@ class functions
     {
         return  preg_replace("/[^0-9]/", "", $value);
     }
+
+    public function findByObj($array, $propName, $search)
+    {
+        foreach ($array as $element) {
+            if ($element[$propName] == $search) {
+                return $element;
+            }
+        }
+        return false;
+    }
 }

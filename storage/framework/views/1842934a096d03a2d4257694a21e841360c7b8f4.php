@@ -18,7 +18,31 @@
         <link href="/assets/css/custom.css" id="app-stylesheet" rel="stylesheet" type="text/css" />
         <?php echo $__env->yieldContent('style'); ?>
     </head>
+<style>
+    .card 
+    {
+        border-radius: 20px !important;
+    }
+table, table td , table th 
+{
+    border:none !important;
+    
+}
 
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+    }
+
+    .btn 
+    {
+        border-radius: 20px !important;
+        margin: 2px;
+    }
+    input
+    {
+        border-radius: 20px !important;
+    }
+</style>
     <body>
 
         <!-- Begin page -->
@@ -203,8 +227,17 @@
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="/admin/plans/all">ماه ها</a></li>
-                                    <li><a href="/admin/plans/new">افزودن ماه جدید</a></li>
+                                    <li>
+                                        <a href="javascript: void(0);">
+                                            <i class="mdi mdi-view-list"></i>
+                                            <span>پلن ها</span>
+                                            <span class="menu-arrow"></span>
+                                        </a>
+                                        <ul class="nav-second-level" aria-expanded="false">
+                                            <li><a href="/admin/plans/all">همه</a></li>
+                                            <li><a href="/admin/plans/new">افزودن</a></li>
+                                        </ul>
+                                    </li>
                                 </ul>
                                 
                             </li>

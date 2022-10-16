@@ -1,5 +1,5 @@
-@font-face {
-    font-family: 'shabnam';
+/* @font-face {
+    font-family: 'iransans';
     src: url('fonts/Shabnam.eot');
     src: url('fonts/Shabnam.eot?#iefix') format('embedded-opentype'),
     url('fonts/Shabnam.woff2') format('woff2'),
@@ -9,7 +9,7 @@
     font-style: normal;
   }
   @font-face {
-    font-family: 'shabnam';
+    font-family: 'iransans';
     font-weight: bold;
     src: url('fonts/Shabnam-Bold.eot');
     src: url('fonts/Shabnam-Bold.eot?#iefix') format('embedded-opentype'),
@@ -18,16 +18,24 @@
     url('fonts/Shabnam-Bold.ttf') format('truetype');
   }
   @font-face {
-    font-family: 'shabnam';
+    font-family: 'iransans';
     font-weight: 400;
     src: url('fonts/Shabnam-Light.eot');
     src: url('fonts/Shabnam-Light.eot?#iefix') format('embedded-opentype'),
     url('fonts/Shabnam-Light.woff2') format('woff2'),
     url('fonts/Shabnam-Light.woff') format('woff'),
     url('fonts/Shabnam-Light.ttf') format('truetype');
+  } */
+
+  @font-face {
+    font-family: 'Iransans';
+    src: local('Iransans'), url("/fonts/iransansFanumLight.woff") format('woff');
+      font-weight: 400;
+      font-display: swap;
+      font-style: normal;
   }
 body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
-    font-family: 'shabnam', tahoma!important;
+    font-family: 'Iransans', tahoma!important;
 }
 /* .account-pages{
   margin: 15rem 0px!important;
@@ -35,3 +43,48 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 .card{
   box-shadow: 0 0.75rem 6rem rgb(56 65 74 / 15%);
 }
+
+
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #737373ac transparent;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 9px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #737373ac;
+  border-radius: 10px;
+  border: 3px solid transparent;
+  transition: opacity 0.5s 0.5s ease-out;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #000000;
+}
+
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice
+    {
+    color: white !important;
+    background-color: #0fa899 !important;
+    border: 1px solid #aaa !important;
+    border-radius: 100000px !important;
+    cursor: default !important;
+    float: left !important;
+    margin-right: 5px !important;
+    margin-top: 5px !important;
+    padding: 2px 7px !important;
+    }
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove
+{
+    color:white !important;
+}
+

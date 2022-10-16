@@ -76,12 +76,6 @@ class WalletController extends Controller
 
         $walletJson = $wallet->jsonserialize();
 
-
-
-
-
-
-
         $count = count($walletJson["transactions"]);
         $transaction = $walletJson["transactions"][$count - 1];
 

@@ -26,6 +26,10 @@ Route::middleware(['auth', 'web', 'isUser'])->group(function () {
 
 Route::get('/posts', 'PostController@all');
 
+Route::get('/info', function () {
+    phpinfo();
+});
+
 Route::get('/pay', [PayController::class, "zarinpalverify"]);
 Route::get('/wallet/walletverify', [WalletController::class, "walletverify"]);
 
@@ -162,12 +166,22 @@ Route::prefix('admin')->group(function () {
         Route::post('/side/create', 'Admin\PackageController@create');
         Route::post('/side/update', 'Admin\PackageController@update');
 
-        Route::get('/plans/new', 'Admin\PlanController@new');
-        Route::get('/plans/single/{id}', 'Admin\PlanController@single');
-        Route::get('/plans/all', 'Admin\PlanController@all');
-        Route::post('/plans/delete', 'Admin\PlanController@delete');
-        Route::post('/plans/create', 'Admin\PlanController@create');
-        Route::post('/plans/update', 'Admin\PlanController@update');
+        Route::get('/plans/new', 'Admin\PlanController@newPlan');
+        Route::get('/plans/single/{id}', 'Admin\PlanController@singlePlan');
+        Route::get('/plans/all', 'Admin\PlanController@allPlans');
+        Route::post('/plans/delete', 'Admin\PlanController@deletePlan');
+        Route::post('/plans/create', 'Admin\PlanController@createPlan');
+        Route::post('/plans/update', 'Admin\PlanController@updatePlan');
+
+
+
+        Route::get('/plans/single/{id}/months/new', 'Admin\PlanController@newMonth');
+        Route::get('/plans/months/single/{id}/{month}', 'Admin\PlanController@singleMonth');
+        Route::get('/plans/single/{id}/months/all', 'Admin\PlanController@allMonths');
+        Route::post('/plans/months/delete', 'Admin\PlanController@deleteMonth');
+        Route::post('/plans/months/create', 'Admin\PlanController@createMonth');
+        Route::post('/plans/months/update', 'Admin\PlanController@updateMonth');
+
 
         Route::get('/calendar/all', 'Admin\CalendarController@all');
         Route::get('/calendar/view', 'Admin\CalendarController@view');
